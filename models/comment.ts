@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-export interface IComment{
+export interface IComment extends Document {
     body: string,
     author: string,
     article: Schema.Types.ObjectId
@@ -19,7 +19,6 @@ const commentSchema = new Schema<IComment>({
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'Article'
-
     }
 }, { timestamps: true }); //Asigna de manera automatica el createdAt or UpodatedAt. (Se puede customizar el name)
 

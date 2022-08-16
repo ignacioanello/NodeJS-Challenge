@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 //export interface IArticle extends Document<Types.ObjectId> {
 export interface IArticle extends Document {

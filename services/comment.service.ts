@@ -2,8 +2,6 @@ import { Types } from 'mongoose';
 import { Comment } from '../models';
 import { IComment } from '../models/comment';
 
-// const { ObjectId } = Types;
-
 export class CommentService {
 
     //     //lean() => Cuando no queres que trackee los cambios sonre el REPL_MODE_SLOPPY, sino que devuelva objetos planos
@@ -13,7 +11,7 @@ export class CommentService {
     //     return Comment.find({}).lean().exec();
 
 
-    find(id: Types.ObjectId) {
+    static find(id: Types.ObjectId) {
         return Comment.find({ article: id }).populate('article').lean().exec();
 
         // ---- Filter by article and return body and NOT _id
@@ -26,16 +24,16 @@ export class CommentService {
         // await Comment.find({ article: '123' }
     }
 
-    create(comment: IComment) {
+    static create(comment: IComment) {
         //add validation for checking articles existance.
         return Comment.create(comment);
     }
 
-    update(commentId: Types.ObjectId, comment: IComment) {
+    static update(commentId: Types.ObjectId, comment: IComment) {
         return Comment.findByIdAndUpdate(commentId, comment, { new: true }).lean().exec();
     }
 
-    remove(commentId: Types.ObjectId) {
+    static remove(commentId: Types.ObjectId) {
         return Comment.findByIdAndRemove(commentId).lean().exec();
     }
 }
