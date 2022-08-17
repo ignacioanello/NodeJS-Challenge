@@ -23,7 +23,7 @@ export class CommentService {
     }
 
     static create(comment: IComment) {
-        //add validation for checking articles existance.
+        //Enhancement: add validation for checking articles existance.
         return Comment.create(comment);
     }
 
@@ -32,7 +32,7 @@ export class CommentService {
     }
 
     static remove(commentId: Types.ObjectId) {
-        return Comment.findByIdAndRemove(commentId).lean().exec();
+        return Comment.findByIdAndRemove(commentId, { new: true }).lean().exec();
     }
 }
 

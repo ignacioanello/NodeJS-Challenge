@@ -1,3 +1,4 @@
+// **** USING mockgoose (DEPRECATED) ==> USE mongodb-memory-server (https://www.npmjs.com/package/mongodb-memory-server)
 // import { ArticleService } from '../services/article.service';
 // import Article, { IArticle } from '../models/article';
 // import mongoose from "mongoose";
@@ -32,37 +33,37 @@ import { ArticleService } from '../services/article.service';
 import Article, { IArticle } from '../models/article';
 import sinon from 'sinon';
 import mongoose from 'mongoose';
-// import mockingoose from 'mockingoose';
+// import mockingoose from 'mockingoose'; // This is not working.
 const mockingoose = require('mockingoose');
 
-const articlesMock = <IArticle[]>[
-    {
-        _id: new mongoose.Types.ObjectId().toString(),
-        title: 'The Article Title 1',
-        body: 'The Article Body 1',
-        author: 'Author 1'
-    },
-    {
-        _id: new mongoose.Types.ObjectId().toString(),
-        title: 'The Article Title 2',
-        body: 'The Article Body 2',
-        author: 'Author 2'
-    },
-    {
-        _id: new mongoose.Types.ObjectId().toString(),
-        title: 'The Article Title 3',
-        body: 'The Article Body 3',
-        author: 'Author 3'
-    },
-    {
-        _id: new mongoose.Types.ObjectId().toString(),
-        title: 'The Article Title 4',
-        body: 'The Article Body 4',
-        author: 'Author 4'
-    },
-];
-
 describe('ArticleService Tests', () => {
+
+    const articlesMock = <IArticle[]>[
+        {
+            _id: new mongoose.Types.ObjectId().toString(),
+            title: 'The Article Title 1',
+            body: 'The Article Body 1',
+            author: 'Author 1'
+        },
+        {
+            _id: new mongoose.Types.ObjectId().toString(),
+            title: 'The Article Title 2',
+            body: 'The Article Body 2',
+            author: 'Author 2'
+        },
+        {
+            _id: new mongoose.Types.ObjectId().toString(),
+            title: 'The Article Title 3',
+            body: 'The Article Body 3',
+            author: 'Author 3'
+        },
+        {
+            _id: new mongoose.Types.ObjectId().toString(),
+            title: 'The Article Title 4',
+            body: 'The Article Body 4',
+            author: 'Author 4'
+        },
+    ];
 
     beforeEach(() => {
         mockingoose.resetAll();
@@ -96,31 +97,22 @@ describe('ArticleService Tests', () => {
         expect(result?.author).toBe(articlesMock[1].author);
     });
 
-    xit('should return the created Article', async () => {
+    it('should return the created Article', async () => {
         // Arrange
         const newArticle = <IArticle>{
             title: 'The new title',
             author: 'The new Author',
             body: 'The new body'
         };
+
         mockingoose(Article).toReturn(newArticle, 'save');
-        // const spySend = sinon.spy(Article, 'create');
-
-        // Act
-        const art = await ArticleService.create(newArticle);
-        // expect(spySend.callCount).toBe(1);
-
-        // console.log(art);
-        // expect(art?.body).toBe(newArticle.body);
-        // expect(art?.author).toBe(newArticle.author)
-        // expect(art?.title).toBe(newArticle.title);
-
-        // articleService.create(newArticle).then(art => {
-        //     // Assert
-        //     expect(art?.body).toBe(newArticle.body);
-        //     expect(art?.author).toBe(newArticle.author);
-        //     expect(art?.title).toBe(newArticle.title);
-        // });
+       
+        ArticleService.create(newArticle).then(art => {
+            // Assert
+            expect(art?.body).toBe(newArticle.body);
+            expect(art?.author).toBe(newArticle.author);
+            expect(art?.title).toBe(newArticle.title);
+        });
 
     });
 
@@ -145,14 +137,14 @@ describe('ArticleService Tests', () => {
         expect(result?.title).toBe(articleUpdated.title);
     });
 
-    it('should return the removed article', async () => {
+    it('should return the removed Article', async () => {
         // Arrange
         mockingoose(Article).toReturn(articlesMock[0], 'findOneAndRemove');
         const spySend = sinon.spy(Article, 'findOneAndRemove');
 
         // Act
-        const result = await ArticleService.remove(articlesMock[0]._id);        
-        
+        const result = await ArticleService.remove(articlesMock[0]._id);
+
         // Assert
         expect(spySend.callCount).toBe(1);
         expect(result?.body).toBe(articlesMock[0].body);

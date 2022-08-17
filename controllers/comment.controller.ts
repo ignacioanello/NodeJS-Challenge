@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { isValidObjectId, Types } from "mongoose";
-import { Comment } from '../models';
-import { IComment } from '../models/comment';
+import { Comment, IComment } from '../models';
 import { CommentService } from '../services/comment.service';
 
 const { ObjectId } = Types;
@@ -34,7 +33,7 @@ export class CommentController {
         const id = req.params.id;
 
         if (!isValidObjectId(id)) {
-            return res.json({
+            return res.status(400).json({
                 ok: false,
                 msg: `The provided comment ID: ${id}, is not valid.`
             });
@@ -51,18 +50,20 @@ export class CommentController {
         }
     }
 
-    static remove(req: Request, res: Response, next: NextFunction) {
+    static async remove(req: Request, res: Response, next: NextFunction) {
         const id = req.params.id;
 
         if (!isValidObjectId(id)) {
-            return res.json({
+            return res.status(400).json({
                 ok: false,
                 msg: `The provided comment ID: ${id}, is not valid.`
             });
         }
+
         const commentId = new ObjectId(id);
+
         try {
-            res.status(200).json(CommentService.remove(commentId));
+            res.status(200).json(await CommentService.remove(commentId));
         } catch (error) {
             console.log(error);
             next();
