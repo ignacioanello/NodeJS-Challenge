@@ -7,5 +7,3 @@ export const api = (router: Router) => {
     router.use('/comments', commentApi(Router()));
     return router;
 }
-
-// export default api;

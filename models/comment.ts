@@ -20,7 +20,6 @@ const commentSchema = new Schema<IComment>({
         required: true,
         ref: 'Article'
     }
-}, { timestamps: true }); //Asigna de manera automatica el createdAt or UpodatedAt. (Se puede customizar el name)
+}, { timestamps: true });
 
-//Con esto ya se crea las acciones de CRUD para trabajar sobre el documento de comment
 export default model<IComment>('Comment', commentSchema);

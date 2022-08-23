@@ -1,39 +1,7 @@
-// **** USING mockgoose (DEPRECATED) ==> USE mongodb-memory-server (https://www.npmjs.com/package/mongodb-memory-server)
-// import { ArticleService } from '../services/article.service';
-// import Article, { IArticle } from '../models/article';
-// import mongoose from "mongoose";
-// import { Mockgoose } from 'mockgoose';
-
-// let mockgoose: Mockgoose = new Mockgoose(mongoose);
-// let article: IArticle;
-// let articleService: ArticleService;
-
-// beforeAll(() => {
-//     mockgoose.prepareStorage().then(() => {
-//         mongoose.connect('mongodb://localhost/Articles');
-//         mongoose.connection.on('connected', () => {
-//             console.log('db connection is now open');
-//         });
-//     });
-// });
-
-// beforeEach(() => {
-//     articleService = new ArticleService();
-// });
-
-// describe('ArticleService Tests', () => {
-
-//     it('should return no Articles', async () => {
-//         const result = await articleService.fetch();
-//         expect(result.length).toBe(0);
-//     });
-// });
-
 import { ArticleService } from '../services/article.service';
 import Article, { IArticle } from '../models/article';
 import sinon from 'sinon';
 import mongoose from 'mongoose';
-// import mockingoose from 'mockingoose'; // This is not working.
 const mockingoose = require('mockingoose');
 
 describe('ArticleService Tests', () => {
@@ -80,7 +48,6 @@ describe('ArticleService Tests', () => {
         // Assert
         expect(spySend.callCount).toBe(1);
         expect(result.length).toBe(articlesMock.length);
-        // expect(result).toMatchObject(articlesMock);
     });
 
     it('should return a specific Articles', async () => {

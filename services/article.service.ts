@@ -1,4 +1,3 @@
-
 import { Types } from 'mongoose';
 import { Article } from '../models';
 import { IArticle } from '../models/article';
@@ -6,10 +5,6 @@ import { IArticle } from '../models/article';
 export class ArticleService {
 
     static fetch() {
-        //lean() => Cuando no queres que trackee los cambios sonre el REPL_MODE_SLOPPY, sino que devuelva objetos planos
-        //para que Node use menos recursos.
-
-        //exec() => para que lo ejecute(???)
         return Article.find().lean().exec();
     }
 
@@ -18,7 +13,6 @@ export class ArticleService {
     }
 
     static create(article: IArticle) {
-        //Enhance: add validation for checking articles existance.
         return Article.create(article);
     }
 
@@ -30,5 +24,3 @@ export class ArticleService {
         return Article.findByIdAndRemove(id).lean().exec();
     }
 }
-
-// export default ArticleService;

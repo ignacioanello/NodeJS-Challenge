@@ -70,4 +70,3 @@ export class CommentController {
         }
     }
 }
-// export default CommentController;

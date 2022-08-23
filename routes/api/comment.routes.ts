@@ -24,5 +24,3 @@ export const commentApi = (router: Router) => {
 
     return router;
 }
-
-// export default commentsApi;

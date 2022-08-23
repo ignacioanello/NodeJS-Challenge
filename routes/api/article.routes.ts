@@ -26,5 +26,3 @@ export const articleApi = (router: Router) => {
 
     return router;
 }
-
-// export default articleApi;

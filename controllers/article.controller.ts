@@ -1,8 +1,3 @@
-
-//ECMAScript Module
-// const { ObjectId } = require('mongoose').Types;
-
-//ES6 Module (Usado en Typescript)
 import { NextFunction, Request, Response } from "express";
 import { isValidObjectId, Types } from "mongoose";
 import { Article } from "../models";
@@ -92,8 +87,5 @@ export class ArticleController {
             console.log(error);
             next();
         }
-        // res.end(); ==> Se termina la respuesta. Es un 200 vacio.
     }
 }
-
-// export default ArticleController;
