@@ -7,7 +7,7 @@
 # Title
 NodeJs CloudX Challenge
 
-## Project Description
+## Project Dependency
 Docker :whale:
   - [Windows](https://docs.docker.com/desktop/install/windows-install/)
   - [Linux](https://docs.docker.com/desktop/install/linux-install/)
